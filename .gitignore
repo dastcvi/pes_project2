@@ -1,0 +1,3 @@
+# makefile outputs for linux
+linux/src/*.o
+linux/src/test_main
