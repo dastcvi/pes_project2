@@ -1,3 +1,7 @@
 # makefile outputs for linux
 linux/src/*.o
 linux/src/test_main
+
+# KDS workspace and project
+frdm/RemoteSystemsTempFiles/
+frdm/.metadata/
