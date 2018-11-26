@@ -1,3 +1,12 @@
+/* Author:   Alex St. Clair
+ * Filename: circular_buffer.c
+ * Created:  11-23-18
+ * Targets:  Linux, FRDM-KL25Z
+ * 
+ * This file implements basic testing of the circular buffer
+ * without C-Unit
+ */
+
 #include "../inc/circular_buffer.h"
 #include <stdio.h>
 #include <stdbool.h>

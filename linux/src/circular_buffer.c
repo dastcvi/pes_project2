@@ -49,13 +49,24 @@ ring_t * ring_init(uint16_t length)
 /* deallocates the given circular buffer */
 void ring_destroy(ring_t * ring)
 {
-	free(ring->buffer);
+	/* check for null pointer */
+	if (ring == NULL) return;
 	free(ring);
+
+	/* check for null buffer */
+	if (ring->buffer == NULL) return;
+	free(ring->buffer);
 }
 
 /* adds the element "data" to the given circular buffer */
 int ring_push(ring_t * ring, char data)
 {
+	/* check for null pointer */
+	if (ring == NULL) return 0;
+
+	/* check for null buffer */
+	if (ring->buffer == NULL) return 0;
+
 	/* check for full condition */
 	if (ring->num_elem == ring->length) return 0;
 
@@ -72,6 +83,13 @@ int ring_push(ring_t * ring, char data)
 /* removes and returns the oldest element in the circular buffer */
 int ring_pop(ring_t * ring, char * data)
 {
+	/* check for null pointer */
+	if (ring == NULL) return 0;
+
+	/* check for null buffer */
+	if (ring->buffer == NULL) return 0;
+
+	/* check for empty condition */
 	if (ring->num_elem == 0) return 0;
 
 	/* get the data */
@@ -87,5 +105,8 @@ int ring_pop(ring_t * ring, char * data)
 /* returns the number of elements in the ring buffer */
 uint16_t ring_size(ring_t * ring)
 {
+	/* check for null pointer */
+	if (ring == NULL) return 0;
+
 	return ring->num_elem;
 }
