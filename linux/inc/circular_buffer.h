@@ -12,6 +12,9 @@
  *   2) does not reserve any unused space when full
  */
 
+#ifndef CIRCULAR_BUFFER_H
+#define CIRCULAR_BUFFER_H
+
 #include <stdint.h>
 
 #define MAX_RING	2048
@@ -41,3 +44,5 @@ int ring_pop(ring_t * ring, char * data);
 
 /* returns the number of elements in the ring buffer */
 uint16_t ring_size(ring_t * ring);
+
+#endif
