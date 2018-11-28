@@ -1,49 +1,43 @@
-/*
- * Copyright (c) 2015, Freescale Semiconductor, Inc.
- * All rights reserved.
+/* Author:   Alex St. Clair
+ * Filename: main.c
+ * Created:  11-25-18
+ * Target:   FRDM-KL25Z
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
+ * This is the main file for the embedded uart application
+ * and driver demos for ECEN 5813 Project 2.
  *
- * o Redistributions of source code must retain the above copyright notice, this list
- *   of conditions and the following disclaimer.
- *
- * o Redistributions in binary form must reproduce the above copyright notice, this
- *   list of conditions and the following disclaimer in the documentation and/or
- *   other materials provided with the distribution.
- *
- * o Neither the name of Freescale Semiconductor, Inc. nor the names of its
- *   contributors may be used to endorse or promote products derived from this
- *   software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Updating the defines will change
  */
 
+#include "uart_driver.h"
 #include "MKL25Z4.h"
 
-static int i = 0;
+#define RUN_BLOCKING_DEMO
+//#define RUN_NONBLOCKING_DEMO
+//#define RUN_APPLICATION
+
+volatile static char user_char = 'a';
 
 int main(void)
 {
+#ifdef RUN_BLOCKING_DEMO
+	init_uart_blocking();
 
-    /* Write your code here */
+	/* endlessly echo chars */
+	while (1)
+	{
+		//user_char = rx_blocking();
+		tx_blocking(user_char);
+	}
+#endif
 
-    /* This for loop should be replaced. By default this loop allows a single stepping. */
-    for (;;) {
-        i++;
-    }
-    /* Never leave main */
+#ifdef RUN_NONBLOCKING_DEMO
+	while (1);
+#endif
+
+#ifdef RUN_APPLICATION
+	while (1);
+#endif
+
     return 0;
 }
-////////////////////////////////////////////////////////////////////////////////
-// EOF
-////////////////////////////////////////////////////////////////////////////////
