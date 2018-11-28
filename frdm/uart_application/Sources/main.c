@@ -16,7 +16,7 @@
 //#define RUN_NONBLOCKING_DEMO
 //#define RUN_APPLICATION
 
-volatile static char user_char = 'a';
+volatile static char user_char = '\0';
 
 int main(void)
 {
@@ -26,7 +26,7 @@ int main(void)
 	/* endlessly echo chars */
 	while (1)
 	{
-		//user_char = rx_blocking();
+		user_char = rx_blocking();
 		tx_blocking(user_char);
 	}
 #endif

@@ -22,7 +22,7 @@ void init_uart_blocking(void)
 	/* UART0_TX: PTA2, ALT2 */
 	PORTA->PCR[2] |= (uint32_t) PORT_ALT_2 << PORT_PCR_MUX_SHIFT;
 
-	/* set UART0 clock to MCGPLLCLK (96 MHz) */
+	/* set UART0 clock to MCGPLLCLK (48 MHz) */
 	SIM->SOPT2 |= (uint32_t) 1 << SIM_SOPT2_UART0SRC_SHIFT;
 
 	/* enable MCGPLLCLK */
@@ -34,14 +34,13 @@ void init_uart_blocking(void)
 	/* ensure receiver and transmitter not enabled */
 	UART0->C2 &= ~((uint8_t) (UART_C2_TE_MASK | UART_C2_RE_MASK));
 
-	/* baud = baud_clock / (OSR * baud_prescale)
+	/* baud_prescale = baud_clock / (OSR * baud)
 	 * OSR = 16 (reset default)
-	 * baud_clock = MCGPLLCLK = 96 MHz
-	 * for baud = 9600, then baud_prescale = 625 = 0x271
+	 * baud_clock = MCGPLLCLK / 2 = 48 MHz (startup code initializes MCGPLLCLK)
+	 * for baud = 115200, then baud_prescale = 26.04
 	 */
-	UART0->BDH &= ~((uint8_t) UART_BDH_SBR_MASK);
-	UART0->BDH |= (uint8_t) 0x2;
-	UART0->BDL = (uint8_t) 0x71;
+	UART0->BDH &= ~((uint8_t) UART_BDH_SBR_MASK); /* clear upper bits since 26 < 0xFF */
+	UART0->BDL = (uint8_t) 26;
 
 	/* module defaults to 8-bit, no parity, one stop bit */
 	/* enable receiver and transmitter */
