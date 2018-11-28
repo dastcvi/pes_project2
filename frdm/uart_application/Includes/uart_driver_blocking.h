@@ -1,20 +1,19 @@
 /* Author:   Alex St. Clair
- * Filename: uart_driver.h
+ * Filename: uart_driver_blocking.h
  * Created:  11-25-18
  * Target:   FRDM-KL25Z
  *
- * This file declares functions to implement both a blocking
- * and a non-blocking driver for the UART module in the
- * MKL25Z128VLK4
+ * This file declares functions to implement a blocking driver for the
+ * UART module in the MKL25Z128VLK4
  */
 
-#ifndef UART_DRIVER_H
-#define UART_DRIVER_H
+#ifndef UART_DRIVER_BLOCKING_H
+#define UART_DRIVER_BLOCKING_H
 
 #include <stdbool.h>
 
-#define PORT_ALT_2		0b010
-#define UART_CLK_OSC	0b10
+#define PORT_ALT_2		2
+#define UART_CLK_PLL	1
 
 /* initialize the uart in blocking mode */
 void init_uart_blocking(void);

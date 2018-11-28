@@ -1,14 +1,13 @@
 /* Author:   Alex St. Clair
- * Filename: uart_driver.c
+ * Filename: uart_driver_blocking.c
  * Created:  11-25-18
  * Target:   FRDM-KL25Z
  *
- * This file implements functions to implement both a blocking
- * and a non-blocking driver for the UART module in the
- * MKL25Z128VLK4
+ * This file implements functions to implement a blocking driver for the
+ * UART module in the MKL25Z128VLK4
  */
 
-#include "uart_driver.h"
+#include "uart_driver_blocking.h"
 #include "MKL25Z4.h"
 
 void init_uart_blocking(void)
@@ -23,7 +22,7 @@ void init_uart_blocking(void)
 	PORTA->PCR[2] |= (uint32_t) PORT_ALT_2 << PORT_PCR_MUX_SHIFT;
 
 	/* set UART0 clock to MCGPLLCLK (48 MHz) */
-	SIM->SOPT2 |= (uint32_t) 1 << SIM_SOPT2_UART0SRC_SHIFT;
+	SIM->SOPT2 |= (uint32_t) UART_CLK_PLL << SIM_SOPT2_UART0SRC_SHIFT;
 
 	/* enable MCGPLLCLK */
 	MCG->C5 |= (uint8_t) 1 << MCG_C5_PLLCLKEN0_SHIFT;
