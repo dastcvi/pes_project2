@@ -18,8 +18,8 @@
 #define PORT_ALT_2		2
 #define UART_CLK_PLL	1
 
-#define TX_BUFFER_SIZE	64
-#define RX_BUFFER_SIZE	64
+#define TX_BUFFER_SIZE	1024
+#define RX_BUFFER_SIZE	256
 
 extern bool rx_overrun;
 

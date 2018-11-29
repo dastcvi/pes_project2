@@ -11,11 +11,12 @@
 
 #include "uart_driver_blocking.h"
 #include "uart_driver_nonblocking.h"
+#include "character_report.h"
 #include "MKL25Z4.h"
 
 //#define RUN_BLOCKING_DEMO
-#define RUN_NONBLOCKING_DEMO
-//#define RUN_APPLICATION
+//#define RUN_NONBLOCKING_DEMO
+#define RUN_APPLICATION
 
 #define RED_LED_PINB		18	/* red LED is on PB18 */
 
@@ -72,7 +73,23 @@ int main(void)
 #endif
 
 #ifdef RUN_APPLICATION
-	while (1);
+	init_uart_nonblocking();
+	red_led_init();
+
+	while (1)
+	{
+		if (check_for_update())
+		{
+			transmit_update();
+		}
+
+		if (rx_overrun)
+		{
+			transmit_error();
+		}
+
+		red_led_toggle();
+	}
 #endif
 
     return 0;
